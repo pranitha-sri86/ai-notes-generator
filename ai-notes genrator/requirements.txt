@@ -36,3 +36,4 @@ numpy==2.3.1
 pandas==2.3.0
 
 markdown==3.8.2
+typer
