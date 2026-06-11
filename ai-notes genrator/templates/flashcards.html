@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Flashcards
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static',
+      filename='css/flashcards.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="flashcards-container">
+
+    <h2 class="text-center mb-4">
+        AI Flashcards
+    </h2>
+
+    <div class="progress-text"
+         id="progressText">
+        Card 1 of {{ total }}
+    </div>
+
+    <div class="flashcard"
+         id="flashcard">
+
+        <div class="flashcard-inner">
+
+            <div class="flashcard-front"
+                 id="question">
+                Loading...
+            </div>
+
+            <div class="flashcard-back"
+                 id="answer">
+                Loading...
+            </div>
+
+        </div>
+
+    </div>
+
+    
+         <div class="progress mb-3">
+
+            <div class="progress-bar"
+                 id="progressBar">
+            </div>
+
+        </div>
+         <div class="flashcard-info">
+         <span id="cardCounter">
+               Card 1 of {{ total }}
+           </span>
+       </div>
+
+       <div class="controls">
+
+        <button class="btn btn-secondary"
+                onclick="previousCard()">
+            ← Previous
+        </button>
+
+        <button class="btn btn-primary ms-2"
+                onclick="nextCard()">
+            Next →
+        </button>
+
+    </div>
+
+    <!-- Completed Message -->
+    <div id="completedMsg" class="completed-msg">
+        🎉 You've reviewed all {{ total }} flashcards!
+        <br>
+        <a href="{{ url_for('upload') }}"
+           class="btn btn-primary mt-3">
+            Generate New Notes
+        </a>
+    </div>
+
+</div>
+
+<!-- Pass AI cards to JavaScript -->
+<!-- Embed cards as JSON to avoid template parsing issues in editors -->
+<script id="flashcards-data" type="application/json">{{ cards | tojson }}</script>
+<script>
+    const flashcards = JSON.parse(document.getElementById('flashcards-data').textContent || '[]');
+</script>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static',
+filename='js/flashcards.js') }}"></script>
+{% endblock %}

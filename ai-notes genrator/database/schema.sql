@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS tutor_history (
+
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+user_id INTEGER,
+
+question TEXT,
+
+answer TEXT,
+
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+);

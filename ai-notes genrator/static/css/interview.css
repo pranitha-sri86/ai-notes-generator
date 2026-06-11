@@ -1,0 +1,21 @@
+.result-box {
+
+    background: #111827;
+
+    color: white;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    max-height: 700px;
+
+    overflow-y: auto;
+
+    white-space: pre-wrap;
+}
+
+.dark-mode .result-box {
+
+    background: #1f2937;
+}

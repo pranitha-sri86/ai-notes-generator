@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+ATS Resume Checker
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <h2 class="mb-4">
+            ATS Resume Checker
+        </h2>
+
+        <form method="POST"
+              action="{{ url_for('analyze_resume') }}">
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Job Role
+                </label>
+
+                <input type="text"
+                       class="form-control"
+                       name="job_role"
+                       placeholder="Example: Python Developer"
+                       required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Paste Resume Text
+                </label>
+
+                <textarea class="form-control"
+                          name="resume_text"
+                          rows="15"
+                          placeholder="Paste your resume text here..."
+                          title="Resume text"
+                          required></textarea>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary">
+
+                Analyze Resume
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

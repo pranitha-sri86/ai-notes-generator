@@ -1,0 +1,327 @@
+
+{% extends "layout.html" %}
+
+{% block title %}{{ note["title"] }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static',
+      filename='css/notes.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex
+                justify-content-between
+                align-items-center mb-4">
+
+        <h2>{{ note["title"] }}</h2>
+
+        <a href="{{ url_for('my_notes') }}"
+           class="btn btn-outline-secondary">
+            ← Back to My Notes
+        </a>
+
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="noteTabs">
+
+        <li class="nav-item">
+            <button class="nav-link active"
+                    data-bs-toggle="tab"
+                    data-bs-target="#summary">
+                Summary
+            </button>
+        </li>
+
+        <li class="nav-item">
+            <button class="nav-link"
+                    data-bs-toggle="tab"
+                    data-bs-target="#detailed">
+                Detailed Notes
+            </button>
+        </li>
+
+        <li class="nav-item">
+            <button class="nav-link"
+                    data-bs-toggle="tab"
+                    data-bs-target="#concepts">
+                Key Concepts
+            </button>
+        </li>
+
+        <li class="nav-item">
+            <button class="nav-link"
+                    data-bs-toggle="tab"
+                    data-bs-target="#revision">
+                Revision Notes
+            </button>
+        </li>
+
+    </ul>
+
+<div class="tab-content mt-3">
+
+    <!-- SUMMARY -->
+    <div class="tab-pane fade show active"
+         id="summary">
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                    <button class="btn btn-primary btn-sm"
+                            onclick='speakText(`{{ note["summary"]|escape }}`)'>
+
+                        🔊 Read Summary
+
+                    </button>
+
+                    <button class="btn btn-danger btn-sm"
+                            onclick="stopSpeech()">
+
+                        ⏹ Stop
+
+                    </button>
+
+                </div>
+
+                <pre class="note-content">
+{{ note["summary"] }}
+                </pre>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DETAILED -->
+    <div class="tab-pane fade"
+         id="detailed">
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <pre class="note-content">
+{{ note["detailed_notes"] }}
+                </pre>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CONCEPTS -->
+    <div class="tab-pane fade"
+         id="concepts">
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <pre class="note-content">
+{{ note["key_concepts"] }}
+                </pre>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- REVISION -->
+    <div class="tab-pane fade"
+         id="revision">
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                    <button class="btn btn-primary btn-sm"
+                            onclick='speakText(`{{ note["revision_notes"]|escape }}`)'>
+
+                        🔊 Read Revision Notes
+
+                    </button>
+
+                    <button class="btn btn-danger btn-sm"
+                            onclick="stopSpeech()">
+
+                        ⏹ Stop
+
+                    </button>
+
+                </div>
+
+                <pre class="note-content">
+{{ note["revision_notes"] }}
+                </pre>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex gap-3 mt-4 mb-5">
+
+        
+
+        <a href="{{ url_for('upload') }}"
+           class="btn btn-primary">
+            + Generate New Notes
+        </a>
+           
+<form action="{{ url_for('download_pdf') }}"
+      method="POST">
+
+    <input type="hidden"
+           name="title"
+           value="{{ note['title'] }}">
+
+    <textarea hidden
+              name="summary">{{ note['summary'] }}</textarea>
+
+    <textarea hidden
+              name="detailed_notes">{{ note['detailed_notes'] }}</textarea>
+
+    <textarea hidden
+              name="key_concepts">{{ note['key_concepts'] }}</textarea>
+
+    <textarea hidden
+              name="revision_notes">{{ note['revision_notes'] }}</textarea>
+
+    <button type="submit"
+            class="btn btn-danger">
+
+        Download PDF
+
+    </button>
+     <button type="button"
+        class="btn btn-dark"
+        onclick="readSummary()">
+
+    🔊 Read Summary
+
+</button>
+</form>
+
+
+        <a href="{{ url_for('my_notes') }}"
+           class="btn btn-outline-secondary">
+            ← Back
+        </a>
+
+    </div>
+
+ 
+    
+<!-- Flashcards and Quiz Buttons -->
+
+<div class="d-flex gap-3 mt-4">
+
+    <!-- Flashcards -->
+    <form action="{{ url_for('flashcards') }}"
+          method="POST">
+        
+<input type="hidden"
+       name="language"
+       value="{{ note['language'] }}">
+
+         
+        <input type="hidden"
+               name="study_text"
+               value="{{ note['summary'] }}">
+
+       
+            <textarea name="study_text" hidden>
+            {{ note["combined_text"] }}
+              </textarea>
+
+
+        <button type="submit"
+                class="btn btn-warning">
+            Generate Flashcards
+        </button>
+
+    </form>
+
+    <!-- Quiz -->
+    <form action="{{ url_for('quiz') }}"
+          method="POST">
+
+        <input type="hidden"
+               name="study_text"
+               value="{{ note['summary'] }}">
+
+        <input type="hidden"
+               name="language"
+               value="{{ note['language'] }}">
+
+        <button type="submit"
+                class="btn btn-success">
+            Generate Quiz
+        </button>
+
+    </form>
+
+</div>
+
+
+</div>
+
+
+
+<hr class="mt-5">
+
+<h3 class="mb-3">
+    AI Study Assistant
+</h3>
+
+<div class="chat-container">
+
+    <div id="chatMessages"
+         class="chat-messages">
+    </div>
+
+    <div class="chat-input-box">
+
+        <input type="text"
+               id="chatInput"
+               class="form-control"
+               placeholder="Ask anything about these notes...">
+
+       <button type="button"
+        class="btn btn-primary"
+        onclick="sendMessage()">
+            Send
+        </button>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+{% block extra_js %}
+
+<script>
+    const NOTE_TEXT = `{{ note["combined_text"]|safe }}`;
+    const NOTE_LANGUAGE = `{{ note["language"]|safe }}`;
+</script>
+
+<script src="{{ url_for('static',
+filename='js/chat.js') }}"></script>
+
+<script src="{{ url_for('static',
+filename='js/voice.js') }}"></script>
+
+<script src="{{ url_for('static',
+filename='js/notes.js') }}"></script>
+
+{% endblock %}

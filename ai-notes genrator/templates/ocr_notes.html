@@ -1,0 +1,119 @@
+
+{% extends "layout.html" %}
+
+{% block title %}
+OCR Notes
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg border-0">
+
+        <div class="card-body p-5">
+
+            <h2 class="text-center mb-4">
+                📸 OCR Image to Notes
+            </h2>
+
+            <form
+    id="ocrForm"
+    method="POST"
+    action="/ocr-notes"
+    enctype="multipart/form-data">
+
+                <div class="mb-4">
+                    <label for="image" class="form-label">Upload image</label>
+                    <input
+                        id="image"
+                        type="file"
+                        name="image"
+                        class="form-control"
+                        title="Select an image file to extract text from"
+                        aria-label="Upload image"
+                        required>
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary w-100">
+
+                    Extract Text
+
+                </button>
+
+            </form>
+
+            {% if image_name %}
+
+<div class="alert alert-success mt-4">
+
+    ✅ Uploaded File:
+    <strong>{{ image_name }}</strong>
+
+</div>
+
+{% endif %}
+
+
+{% if error %}
+
+<div class="alert alert-danger mt-4">
+
+    ❌ {{ error }}
+
+</div>
+
+{% endif %}
+
+            {% if extracted_text != "" %}
+
+            <div class="mt-5">
+
+                <h4>
+                    📘 Extracted Text
+                </h4>
+
+                <div class="ocr-result-box mt-3">
+
+                    <pre style="white-space: pre-wrap;">
+{{ extracted_text }}
+                    </pre>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const form =
+        document.getElementById("ocrForm");
+
+        form.addEventListener(
+            "submit",
+            function () {
+
+                console.log(
+                    "OCR FORM SUBMITTED"
+                );
+
+            }
+        );
+
+    }
+);
+
+</script>
+{% endblock %}

@@ -1,0 +1,165 @@
+.analytics-card {
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    text-align: center;
+
+    transition: 0.3s;
+}
+
+.analytics-card:hover {
+
+    transform: translateY(-5px);
+}
+
+.dark-mode .analytics-card {
+
+    background: #1f2937;
+
+    color: white;
+}
+
+.analytics-card h2 {
+
+    font-size: 40px;
+
+    font-weight: bold;
+
+    margin-top: 10px;
+}
+.analytics-page {
+
+    color: #ffffff;
+}
+
+/* Header */
+
+.analytics-title {
+
+    font-size: 3rem;
+
+    font-weight: 700;
+
+    color: #1e293b;
+}
+
+.analytics-subtitle {
+
+    color: #64748b;
+
+    font-size: 1.1rem;
+}
+
+/* Cards */
+
+.analytics-card {
+
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b
+    );
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    color: white;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+    transition: 0.3s;
+}
+
+.analytics-card:hover {
+
+    transform: translateY(-5px);
+}
+
+.analytics-icon {
+
+    font-size: 2rem;
+
+    margin-bottom: 15px;
+}
+
+.analytics-card h1 {
+
+    font-size: 3rem;
+
+    font-weight: bold;
+
+    margin-top: 10px;
+}
+
+/* Recent Notes */
+
+.recent-notes-card {
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.recent-note-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-radius: 12px !important;
+
+    margin-bottom: 12px;
+
+    transition: 0.3s;
+}
+
+.recent-note-item:hover {
+
+    background: #f8fafc;
+}
+
+/* Dark Mode */
+
+body.dark-mode .analytics-title {
+
+    color: white;
+}
+
+body.dark-mode .analytics-subtitle {
+
+    color: #cbd5e1;
+}
+
+body.dark-mode .recent-notes-card {
+
+    background: #1e293b;
+
+    color: white;
+}
+
+body.dark-mode .recent-note-item {
+
+    background: #0f172a;
+
+    color: white;
+
+    border: 1px solid #334155;
+}
+
+body.dark-mode .recent-note-item:hover {
+
+    background: #1e293b;
+}

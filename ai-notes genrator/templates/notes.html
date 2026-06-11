@@ -1,0 +1,291 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Generated Notes
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+      href="{{ url_for('static',
+      filename='css/notes.css') }}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="notes-container">
+
+    <div class="notes-card">
+
+        <h2 class="text-center mb-4">
+            Generated Study Notes
+        </h2>
+          <div class="mb-3">
+    <label class="form-label">
+        Subject
+    </label>
+
+    <input type="text"
+           name="subject"
+           class="form-control"
+           placeholder="Example: DBMS">
+</div>
+        <!-- Tabs -->
+        <ul class="nav nav-tabs"
+            id="notesTabs">
+
+            <li class="nav-item">
+                <button class="nav-link active"
+                        data-bs-toggle="tab"
+                        data-bs-target="#summary">
+                    Summary
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link"
+                        data-bs-toggle="tab"
+                        data-bs-target="#detailed">
+                    Detailed Notes
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link"
+                        data-bs-toggle="tab"
+                        data-bs-target="#concepts">
+                    Key Concepts
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link"
+                        data-bs-toggle="tab"
+                        data-bs-target="#definitions">
+                    Definitions
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link"
+                        data-bs-toggle="tab"
+                        data-bs-target="#revision">
+                    Revision Notes
+                </button>
+            </li>
+
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content mt-3">
+
+            <div class="tab-pane fade show active"
+                 id="summary">
+                <div class="notes-content"
+                     id="summaryContent">
+                    <pre class="notes-pre">{{ summary if summary else "No summary generated yet." }}</pre>
+                </div>
+            </div>
+
+            <div class="tab-pane fade"
+                 id="detailed">
+                <div class="notes-content"
+                     id="detailedContent">
+                    <pre class="notes-pre">{{ detailed_notes if detailed_notes else "No detailed notes generated yet." }}</pre>
+                </div>
+            </div>
+
+            <div class="tab-pane fade"
+                 id="concepts">
+                <div class="notes-content"
+                     id="conceptsContent">
+                    <pre class="notes-pre">{{ key_concepts if key_concepts else "No key concepts generated yet." }}</pre>
+                </div>
+            </div>
+
+            <div class="tab-pane fade"
+                 id="definitions">
+                <div class="notes-content"
+                     id="definitionsContent">
+                    <pre class="notes-pre">{{ key_concepts if key_concepts else "No definitions generated yet." }}</pre>
+                </div>
+            </div>
+
+            <div class="tab-pane fade"
+                 id="revision">
+                <div class="notes-content"
+                     id="revisionContent">
+                    <pre class="notes-pre">{{ revision_notes if revision_notes else "No revision notes generated yet." }}</pre>
+                </div>
+            </div>
+
+        </div>
+
+       
+            <!-- Action Buttons -->
+<div class="action-buttons mt-4">
+
+    <button type="button"
+            class="btn btn-primary"
+            onclick="copyNotes()">
+        📋 Copy Notes
+    </button>
+
+</div>
+
+<hr>
+
+<!-- Save Notes Form -->
+<form method="POST"
+      action="{{ url_for('save_notes') }}"
+      id="saveForm">
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Notes Title
+        </label>
+
+        <input type="text"
+               name="title"
+               class="form-control"
+               placeholder="Enter Notes Title"
+               required>
+
+    </div>
+
+    <input type="hidden"
+           name="original_content"
+           value="{{ original_text }}">
+
+    <input type="hidden"
+           name="summary"
+           value="{{ summary }}">
+
+    <input type="hidden"
+           name="detailed_notes"
+           value="{{ detailed_notes }}">
+
+    <input type="hidden"
+           name="key_concepts"
+           value="{{ key_concepts }}">
+
+    <input type="hidden"
+           name="revision_notes"
+           value="{{ revision_notes }}">
+
+    <button type="submit"
+            class="btn btn-success">
+        💾 Save Notes
+    </button>
+
+</form>
+
+<hr>
+
+<!-- Download PDF Form -->
+<form method="POST"
+      action="{{ url_for('download_pdf') }}">
+
+    <input type="hidden"
+           name="summary"
+           value="{{ summary }}">
+
+    <input type="hidden"
+           name="detailed_notes"
+           value="{{ detailed_notes }}">
+
+    <input type="hidden"
+           name="key_concepts"
+           value="{{ key_concepts }}">
+
+    <input type="hidden"
+           name="revision_notes"
+           value="{{ revision_notes }}">
+
+    <button type="submit"
+            class="btn btn-dark">
+        ⬇ Download PDF
+    </button>
+
+</form>
+
+<hr>
+
+<!-- Hidden Flashcards Form -->
+<form method="POST"
+      action="{{ url_for('flashcards') }}"
+      id="flashcardsForm">
+
+    <input type="hidden"
+           name="study_text"
+           value="{{ original_text }}">
+
+</form>
+
+<!-- Hidden Quiz Form -->
+<form method="POST"
+      action="{{ url_for('quiz') }}"
+      id="quizForm">
+
+    <input type="hidden"
+           name="study_text"
+           value="{{ original_text }}">
+
+</form>
+
+<!-- Flashcards & Quiz Buttons -->
+<div class="action-buttons mt-4">
+
+    <button class="btn btn-warning"
+            onclick="document.getElementById('flashcardsForm').submit()">
+        🃏 Generate Flashcards
+    </button>
+
+    <button class="btn btn-danger"
+            onclick="document.getElementById('quizForm').submit()">
+        📝 Generate Quiz
+    </button>
+
+</div>
+
+<h3>💬 Ask AI About These Notes</h3>
+
+<textarea
+    id="chatQuestion"
+    class="form-control"
+    rows="3"
+    placeholder="Ask a question...">
+</textarea>
+
+<button
+    type="button"
+    class="btn btn-primary mt-2"
+    onclick="askAI()">
+
+    Ask AI
+</button>
+
+<!-- PUT IT HERE -->
+<div
+    id="chatAnswer"
+    class="alert alert-info mt-3 d-none">
+</div>
+
+<textarea
+    id="allNotesText"
+    hidden>{{ summary }}
+</textarea>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static',
+filename='js/notes.js') }}"></script>
+
+<script src="{{ url_for(
+'static',
+filename='js/chat.js'
+) }}"></script>
+
+{% endblock %}

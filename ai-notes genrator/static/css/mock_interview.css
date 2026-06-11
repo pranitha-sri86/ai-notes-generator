@@ -1,0 +1,69 @@
+.chat-box {
+
+    height: 500px;
+
+    overflow-y: auto;
+
+    background: #f3f4f6;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    margin-top: 20px;
+}
+
+.user-msg {
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    margin-bottom: 10px;
+
+    text-align: right;
+}
+
+.bot-msg {
+
+    background: #e5e7eb;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    margin-bottom: 10px;
+}
+
+.dark-mode .chat-box {
+
+    background: #111827;
+}
+
+.dark-mode .bot-msg {
+
+    background: #374151;
+
+    color: white;
+}
+.score-card {
+
+    background: #111827;
+
+    color: white;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    margin-top: 10px;
+}
+
+.dark-mode .score-card {
+
+    background: #1f2937;
+}

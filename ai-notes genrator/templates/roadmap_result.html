@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Roadmap Result
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+
+<div class="card shadow-lg border-0">
+
+    <div class="card-body p-5">
+
+        <h2 class="mb-4 text-center">
+            🚀 {{ career_goal }} Roadmap
+        </h2>
+
+        <pre class="roadmap-content">
+
+
+{{ roadmap }} </pre>
+
+        <div class="text-center mt-4">
+
+            <a href="/roadmap"
+               class="btn btn-primary">
+
+                Generate Another
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

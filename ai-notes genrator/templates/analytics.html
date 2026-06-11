@@ -1,0 +1,290 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Analytics
+{% endblock %}
+
+{% block extra_css %}
+
+<link rel="stylesheet"
+      href="{{ url_for('static',
+      filename='css/analytics.css') }}">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+```
+<h2 class="mb-4 text-center fw-bold">
+    📊 Analytics Dashboard
+</h2>
+
+<!-- TOP CARDS -->
+
+<div class="row g-4">
+
+    <!-- Total Notes -->
+
+    <div class="col-md-4">
+
+        <div class="card analytics-card shadow-lg border-0">
+
+            <div class="card-body text-center">
+
+                <h5 class="mb-3">
+                    📘 Total Notes
+                </h5>
+
+                <h1 class="analytics-number">
+                    {{ analytics.total_notes }}
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Study Time -->
+
+    <div class="col-md-4">
+
+        <div class="card analytics-card shadow-lg border-0">
+
+            <div class="card-body text-center">
+
+                <h5 class="mb-3">
+                    ⏱ Study Time
+                </h5>
+
+                <h1 class="analytics-number">
+                    {{ analytics.study_time }} mins
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Productivity -->
+
+    <div class="col-md-4">
+
+        <div class="card analytics-card shadow-lg border-0">
+
+            <div class="card-body text-center">
+
+                <h5 class="mb-3">
+                    🔥 Productivity
+                </h5>
+
+                <h1 class="analytics-number">
+                    Active
+                </h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CHARTS -->
+
+<div class="row mt-5">
+
+    <!-- Notes Chart -->
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-lg border-0">
+
+            <div class="card-body">
+
+                <h4 class="mb-4">
+                    📈 Notes Analytics
+                </h4>
+
+                <canvas id="notesChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Productivity Chart -->
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-lg border-0">
+
+            <div class="card-body">
+
+                <h4 class="mb-4">
+                    🎯 Productivity
+                </h4>
+
+                <canvas id="productivityChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- RECENT NOTES -->
+
+<div class="card shadow-lg border-0 mt-4">
+
+    <div class="card-body">
+
+        <h4 class="mb-4">
+            📚 Recent Notes
+        </h4>
+
+        {% if analytics.recent_notes %}
+
+            <ul class="list-group">
+
+                {% for note in analytics.recent_notes %}
+
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                        <span>
+                            {{ note["title"] }}
+                        </span>
+
+                        <span class="badge bg-primary">
+                            Note
+                        </span>
+
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+
+        {% else %}
+
+            <div class="alert alert-info">
+                No recent notes found.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- CHART JS -->
+
+<script>
+
+    // NOTES CHART
+
+    const notesCtx =
+        document.getElementById('notesChart');
+
+    new Chart(notesCtx, {
+
+        type: 'bar',
+
+        data: {
+
+            labels: [
+                'Notes',
+                'Study Time',
+                'Revision'
+            ],
+
+            datasets: [{
+
+                label: 'Analytics',
+
+                data: [
+                    {{ analytics.total_notes }},
+                    {{ analytics.study_time }},
+                    80
+                ],
+
+                backgroundColor: [
+                    '#4f46e5',
+                    '#06b6d4',
+                    '#10b981'
+                ],
+
+                borderRadius: 10
+
+            }],
+
+            options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+                    display: false
+                }
+
+            }
+
+        }
+
+        }
+
+    });
+
+
+    // PRODUCTIVITY CHART
+
+    const productivityCtx =
+        document.getElementById('productivityChart');
+
+    new Chart(productivityCtx, {
+
+        type: 'doughnut',
+
+        data: {
+
+            labels: [
+                'Completed',
+                'Remaining'
+            ],
+
+            datasets: [{
+
+                data: [75, 25],
+
+                backgroundColor: [
+                    '#22c55e',
+                    '#e5e7eb'
+                ]
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true
+
+        }
+
+    });
+
+</script>
+
+{% endblock %}

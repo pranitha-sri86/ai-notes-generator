@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}My Notes{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">📚 My Saved Notes</h2>
+   <form method="GET" action="{{ url_for('my_notes') }}">
+    <div class="input-group mb-4">
+
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search notes..."
+            value="{{ request.args.get('search', '') }}">
+
+        <button
+            class="btn btn-primary"
+            type="submit">
+
+            Search
+
+        </button>
+
+    </div>
+    {% if notes %}
+        <div class="row">
+            {% for note in notes %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ note.title }}</h5>
+                        <p class="card-text text-muted small">
+                            Saved on: {{ note.created_at }}
+                        </p>
+                        
+
+
+                        
+</form>
+                        <div class="d-flex gap-2">
+                            <a href="{{ url_for('view_note', note_id=note.id) }}" 
+                               class="btn btn-primary btn-sm">
+                                👁 View
+                            </a>
+                            <a href="{{ url_for('delete_note', note_id=note.id) }}" 
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Delete this note?')">
+                                🗑 Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center py-5">
+            <h4>No notes saved yet</h4>
+            <p class="mb-3">Start generating notes and save them here!</p>
+            <a href="{{ url_for('upload') }}" class="btn btn-primary">
+                Generate New Notes
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

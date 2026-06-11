@@ -1,0 +1,28 @@
+.roadmap-card {
+
+
+max-width: 700px;
+
+margin: auto;
+
+background: white;
+
+padding: 40px;
+
+border-radius: 20px;
+
+box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+
+}
+
+.roadmap-content {
+
+
+white-space: pre-wrap;
+
+font-size: 16px;
+
+line-height: 1.8;
+
+}

@@ -1,0 +1,105 @@
+.upload-container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.upload-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.upload-box {
+    border: 3px dashed #4F46E5;
+    border-radius: 15px;
+    padding: 50px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upload-box:hover {
+    background: #f3f4f6;
+}
+
+.upload-box i {
+    font-size: 4rem;
+    color: #4F46E5;
+}
+
+.text-input {
+    min-height: 250px;
+    resize: vertical;
+}
+
+.spinner-container {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.spinner-border {
+    width: 4rem;
+    height: 4rem;
+}
+.loading-overlay {
+
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.6);
+
+    z-index: 9999;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-content {
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    min-width: 300px;
+}
+
+.spinner {
+
+    width: 60px;
+    height: 60px;
+
+    border: 6px solid #ddd;
+
+    border-top: 6px solid #4F46E5;
+
+    border-radius: 50%;
+
+    margin: auto;
+
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

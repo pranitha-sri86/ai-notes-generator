@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+ATS Result
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <h2 class="mb-4">
+            ATS Analysis Result
+        </h2>
+
+        <h5>
+            Job Role:
+            {{ job_role }}
+        </h5>
+
+        <hr>
+
+        <pre class="note-content">
+{{ result }}
+        </pre>
+
+        <a href="{{ url_for('ats_checker') }}"
+           class="btn btn-primary mt-3">
+
+            Check Another Resume
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

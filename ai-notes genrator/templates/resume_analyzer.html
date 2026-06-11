@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Resume Analyzer
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"
+href="{{ url_for('static',
+filename='css/resume.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="card shadow-lg p-4">
+
+        <h2 class="text-center mb-4">
+            📄 AI Resume Analyzer
+        </h2>
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            <div class="mb-3">
+
+                <label for="resume" class="form-label">
+                    Upload Resume PDF
+                </label>
+
+                <input type="file"
+                       id="resume"
+                       class="form-control"
+                       name="resume"
+                       accept=".pdf"
+                       title="Upload a PDF resume file"
+                       required>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary w-100">
+
+                Analyze Resume
+
+            </button>
+         <div class="mb-3">
+
+    <label class="form-label">
+        Job Role
+    </label>
+
+    <input type="text"
+           class="form-control"
+           name="job_role"
+           placeholder="Example: Python Developer"
+           required>
+
+</div>
+        </form>
+
+        {% if error %}
+
+        <div class="alert alert-danger mt-3">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+        {% if result %}
+
+        <hr class="my-4">
+
+        <div class="result-box">
+
+<pre>{{ result }}</pre>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

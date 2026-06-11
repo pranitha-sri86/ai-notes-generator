@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Career Roadmap
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+
+<div class="card shadow-lg border-0 p-4">
+
+    <h2 class="text-center mb-4">
+        🚀 AI Career Roadmap Generator
+    </h2>
+
+    <form method="POST">
+
+        <div class="mb-3">
+
+            <label for="career_goal" class="form-label">
+                Career Goal
+            </label>
+
+            <select id="career_goal"
+                    name="career_goal"
+                    class="form-select"
+                    required>
+
+                <option value="">
+                    Select Career
+                </option>
+
+                <option>
+                    Frontend Developer
+                </option>
+
+                <option>
+                    Backend Developer
+                </option>
+
+                <option>
+                    AI Engineer
+                </option>
+
+                <option>
+                    Data Scientist
+                </option>
+
+                <option>
+                    DevOps Engineer
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label for="level" class="form-label">
+                Current Level
+            </label>
+
+            <select id="level"
+                    name="level"
+                    class="form-select">
+
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-4">
+
+            <label for="duration" class="form-label">
+                Duration
+            </label>
+
+            <select id="duration"
+                    name="duration"
+                    class="form-select"
+                    title="Select Duration">
+
+                <option>3 Months</option>
+                <option>6 Months</option>
+                <option>12 Months</option>
+
+            </select>
+
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary w-100">
+
+            Generate Roadmap
+
+        </button>
+
+    </form>
+
+</div>
+
+
+</div>
+
+{% endblock %}
